@@ -11,62 +11,80 @@ library(tidyr)
 
 fluidPage(
   
-  titlePanel("Visualize social networks"),
-
-  #hr(style="border-top: 1px solid #000000;"), 
-  #br(), 
-
+  # Título principal de la página
+  titlePanel("Visualizar redes sociales"),
+  
+  # Fila para subir archivo y opciones relacionadas
   fluidRow(
     column(4,  
-           fileInput("file", "Upload CSV file:",
-                     accept = c(
-                       "text/csv",
-                       "text/comma-separated-values,text/plain",
-                       ".csv")
+           fileInput("file", "Subir archivo CSV:",
+                     accept = c("text/csv", "text/comma-separated-values,text/plain", ".csv")
            ), 
-            downloadButton("download_image", "Download graph as pdf")
-
+           downloadButton("download_image", "Descargar gráfico en PDF")
     ), 
+    
     column(4,  
            selectInput(inputId = "network_type",
-                       label = "Choose processing",
-                       c(Raw = "raw", 
-                         Summed = "summed"
+                       label = "Seleccionar tipo de procesamiento",
+                       c("Original" = "raw", 
+                         "Sumada" = "summed"
                        )
            ),
-           checkboxInput("positive", "Display positive values", value = TRUE),
-           checkboxInput("negative", "Display negative values", value = TRUE),
-           checkboxInput("consistent_layout", "Keep layout consistent", value = TRUE),
+           checkboxInput("positive", "Mostrar valores positivos", value = TRUE),
+           checkboxInput("negative", "Mostrar valores negativos", value = TRUE),
+           checkboxInput("consistent_layout", "Mantener diseño consistente", value = TRUE),
     ), 
+    
     column(4,  
-           # choose threshold for display
+           # Control deslizante para umbral de conexiones
            sliderInput("threshold", 
-                      "Threshold for connections", 
-                      min = 0, 
-                      max = 6, 
-                      value = 0, 
-                      step = 1), 
+                       "Umbral para las conexiones", 
+                       min = 0, 
+                       max = 6, 
+                       value = 0, 
+                       step = 1), 
+           
+           # Control deslizante para tamaño de nodos
            sliderInput("node_size", 
-                       "Size of the dots", 
+                       "Tamaño de los nodos", 
                        min = 0, 
                        max = 2, 
                        value = 1, 
-                       step = 0.1)
+                       step = 0.1),
+           
+           # Opciones para seleccionar estudiante individual
+           checkboxInput("individual", "Seleccionar estudiante"),
+           
+           conditionalPanel(
+             condition = "input.individual == true",
+             selectInput("student_id", "Estudiante", choices = list(1, 2, 3))
+           ),
+           
+           conditionalPanel(
+             condition = "input.individual == true",
+             checkboxInput("ingoing_conns", "Mostrar conexiones entrantes", value = TRUE)
+           ),
+           
+           conditionalPanel(
+             condition = "input.individual == true",
+             checkboxInput("outgoing_conns", "Mostrar conexiones salientes", value = TRUE)
+           )
     ), 
   ),
   
+  # Fila para el botón de información
   fluidRow(
     column(12, 
-           actionButton("action_info", "Information"), 
+           actionButton("action_info", "Información"), 
            htmlOutput("information")
     ),
   ),
   
   hr(),
-
+  
+  # Panel principal para mostrar el gráfico y la tabla de datos
   mainPanel(
     plotOutput("graph"),
     tableOutput("data")
   )
-  
 )

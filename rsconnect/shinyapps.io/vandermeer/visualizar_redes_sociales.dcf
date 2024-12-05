@@ -1,0 +1,13 @@
+name: visualizar_redes_sociales
+title: visualizar_redes_sociales
+username: vandermeer
+account: vandermeer
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 13525535
+bundleId: 9463959
+url: https://vandermeer.shinyapps.io/visualizar_redes_sociales/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: ui_old.R|ui.R

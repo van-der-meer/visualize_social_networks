@@ -1,32 +1,28 @@
 function(input, output) {
   
   output$information <- renderUI({
+    # show text when number of clicks is uneven; hide if even
     if(input$action_info %% 2 == 1){
-      updateActionButton(inputId = "action_explain", label = "¡Entendido!")
-      HTML("
-        <p>El archivo importado debe ser un archivo <strong>.csv</strong>. Puedes exportarlo desde Excel en este formato.</p>
-        <p>Las columnas deben estar nombradas de la siguiente manera:</p>
-        <ul>
-          <li><strong>ID</strong>, <strong>jugar_6</strong>, <strong>jugar_5</strong>, <strong>jugar_4</strong>, <strong>jugar_3</strong>, <strong>jugar_2</strong>, <strong>jugar_1</strong></li>
-        </ul>
-        <p>El archivo debe tener tantas filas como personas haya, incluso si no todas están llenas con datos.</p>
-        <p>Cada una de las 6 posibles categorías se transformó en un peso de la conexión entre dos estudiantes:</p>
-        <ul>
-          <li><strong>jugar_6</strong> tiene el peso 3</li>
-          <li><strong>jugar_5</strong> tiene el peso 2</li>
-          <li><strong>jugar_4</strong> tiene el peso 1</li>
-          <li><strong>jugar_3</strong> tiene el peso -1</li>
-          <li><strong>jugar_2</strong> tiene el peso -2</li>
-          <li><strong>jugar_1</strong> tiene el peso -3</li>
-        </ul>
-        <p>De esta forma, se puede dibujar una conexión entre cada estudiante y todos aquellos con los que se hayan anotado, con una fuerza de conexión dada.</p>
-        <p>Todos los valores que no sean numéricos serán convertidos en <strong>NA</strong>, lo que significa que los enlaces correspondientes no aparecerán en la red.</p>
-        <p>La opción <strong>'Mantener el diseño consistente'</strong> asegura que todas las redes se organicen de la misma manera. El diseño se basa en la red completa. Si no se marca, todas las redes se organizarán de forma similar a un resorte. Los nodos con más y más fuertes conexiones (sin importar si son positivas o negativas) serán más centrales que aquellos con menos y más débiles conexiones.</p>
-        <p>La red sumada muestra la suma de las conexiones mutuas. En este caso, se puede perder información si dos personas tienen opiniones opuestas entre sí.</p>
-        <p>El control deslizante del umbral permite excluir valores por debajo de un cierto umbral de la red. Esto hace que la red esté menos desordenada, pero se pierde información.</p>
-      ")
+      updateActionButton(inputId = "action_explain", label = "Got it!")
+      renderUI({HTML("The imported data should be a .csv file. You can export it from excel as such. <br>
+                     The columns have to be named: <br>
+                     'ID', 'jugar_6', 'jugar_5', 'jugar_4', 'jugar_3', 'jugar_2', 'jugar_1'. <br>
+                     The file needs to have as many rows as there are people, even if not 
+                     all of them filled in the data. <br>
+                     Each of the 6 possible categories was transformed into a weight of the connection between the two students. 
+                     jugar_6 has the weight 3, jugar_5 the weight 2, jugar_4 the weight 1, jugar_3 the weight -1, jugar_2 the weight -2 and jugar_1 the weight -3. 
+                     In this way, a connection can be drawn from each student to all students they noted down with a given connection strength. <br>
+                     All values that are not a number will be converted to NA, meaning the corresponding links
+                     will not appear in the networks. <br>
+                     The checkbox 'Keep layout consistent' ensures that all networks are arranged in the same way. The arrangement is based on the full network. 
+                     If unchecked, all networks will be arranged in a spring-like fashion. Nodes with more and stronger connections (it does not matter if positive or negative) 
+                     will be more central than nodes with less and weaker connections. <br>
+                     The summed network displays the sum of mutual connections. 
+                     In this case information might get lost if two people have opposing opinions of each others. <br>
+                     The threshold slider lets one exclude values below a certain threshold from the network. 
+                     This makes the network less cluttered but one loses information")})
     } else {
-      updateActionButton(inputId = "action_info", label = "Información")
+      updateActionButton(inputId = "action_info", label = "Information")
       tagList()
     }
   })

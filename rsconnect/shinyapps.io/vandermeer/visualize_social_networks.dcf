@@ -1,12 +1,13 @@
 name: visualize_social_networks
-title:
+title: visualize_social_networks
 username: vandermeer
 account: vandermeer
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 11356502
-bundleId: 8317728
+bundleId: 9463955
 url: https://vandermeer.shinyapps.io/visualize_social_networks/
 version: 1
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: README.md|ui_old.R|ui.R
